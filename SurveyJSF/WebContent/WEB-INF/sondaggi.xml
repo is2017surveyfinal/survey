@@ -1,0 +1,44 @@
+<sondaggi>
+
+<sondaggio ids="1">
+<title>titolo 1 </title>
+<fruitore>id fruitore </fruitore>
+	<domanda idq="1">
+	        <argomento>argomento1</argomento>
+		<testo>domanda1</testo>
+		<immagine>link_immagine1</immagine>
+		<risposta id="1.1.1" checked="true">risposta 1.1.1 </risposta>
+		<risposta id="1.1.2">risposta 1.1.2</risposta>
+		<risposta id="1.1.3">risposta 1.1.3</risposta>
+	</domanda>
+	<domanda idq="2">
+	        <argomento>argomento2</argomento>
+		<testo>domanda2</testo>
+		<immagine>link_immagine2</immagine>
+		<risposta id="1.2.1">risposta 1.2.1 </risposta>
+		<risposta id="1.2.2" checked="true">risposta 1.2.2</risposta>
+		<risposta id="1.2.3">risposta 1.2.3</risposta>
+	</domanda>
+</sondaggio>
+
+<sondaggio>
+<title>titolo 2 </title>
+	<domanda idq="1">
+	        <argomento>argomento3</argomento>
+		<testo>domanda1</testo>
+		<immagine>link_immagine1</immagine>
+		<risposta id="2.1.1">risposta 2.1.1 </risposta>
+		<risposta id="2.1.2">risposta 2.1.2</risposta>
+		<risposta id="2.1.3" checked="true">risposta 2.1.3</risposta>
+	</domanda>
+	<domanda idq="2">
+	        <argomento>argomento4</argomento>
+		<testo>domanda2</testo>
+		<immagine>link_immagine2</immagine>
+		<risposta id="2.2.1">risposta 2.2.1 </risposta>
+		<risposta id="2.2.1">risposta 2.2.2</risposta>
+		<risposta id="2.2.3">risposta 2.2.3</risposta>
+	</domanda>
+</sondaggio>
+
+</sondaggi>

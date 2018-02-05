@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+      
+ 
+    <h:head>
+        <title>JSF 2.2 Hello World </title>
+    </h:head>
+    <h:body bgcolor="white">
+     
+
+
+ <!-- p:outputLabel value="#{surveyProducer.selectedSurvey.title}" /-->
+
+ <h:form>
+ <p:growl id="msgs" showDetail="true" escape="false"/>
+ <p:panelGrid columns="2" header="Panel" style="margin:0px 0px">
+        <p:outputLabel for="title" value="Inserisci il testo per una nuova domanda:  " />
+        <p:inputText id="title" value="#{question.title}" update="title"  />
+        
+       
+    <p:outputLabel id="countryLabel" value="Inserisci l'argomento: " /> 
+	<p:autoComplete id="countryList" value="#{argumentListProducer.argumentName}" completeMethod="#{argumentListProducer.createRealArgument()}" forceSelection="true" />    
+    
+  
+ 
+   
+   <p:fileUpload id="uploadimg" fileUploadListener="#{fileUploadView.handleFileUpload}" label="Choose image" mode="advanced" dragDropSupport="false" 
+       update="msgs" sizeLimit="100000" fileLimit="3" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />      
+           
+  
+           
+  </p:panelGrid>
+     
+   
+   
+    <p:dataTable value="#{question.items}" var="item" id="dataTableQuestion" style="margin:0px 0px">
+        <p:column><p:inputText value="#{item.value}"  /></p:column>
+        
+        <p:column><p:commandButton value="remove" action="#{question.removeAnswer(item)}" update="dataTableQuestion" ajax="true" /></p:column>
+        
+        
+        
+    </p:dataTable>
+   
+    <p:commandButton value="Add Answer " action="#{question.addAnswer}" update="dataTableQuestion" icon="ui-icon-pencil" ajax="true"  />
+    <p:commandButton value="Save Question" action="#{addQuestionController.save(question)}" icon="ui-icon-disk" update="@form,msgs,treeDataTable" ajax="true" />
+    
+ 
+  
+  <p:treeTable id="treeDataTable" value="#{treeManagedBean.root}" selectionMode="single" selection="#{treeManagedBean.selectedNode}" var="node" ajax="true">
+        <f:facet name="header">
+            Survey Tree Editor
+        </f:facet>
+        <p:column >
+            <h:outputText  value="#{node.title}" />
+        </p:column>
+     
+       
+             
+ </p:treeTable>
+  
+  
+  
+  
+  <p:commandButton value="Delete" update="msgs,treeDataTable" icon="ui-icon-trash" ajax="true"  action="#{treeManagedBean.modifySelectedSingle}" >
+     <f:param name="skipValidator" value="true"/>
+  </p:commandButton>    
+   
+                        
+  <!-- p:growl id="messages" /-->
+ 
+    <p:splitButton value="Save" actionListener="#{buttonView.save}" update="msgs" icon="ui-icon-disk">
+        
+      
+        <p:menuitem value="Homepage" url="http://www.primefaces.org" icon="ui-icon-extlink" />
+    </p:splitButton>              
+  
+ 
+ 
+</h:form>
+ 
+ 
+ 
+    </h:body>
+</html>

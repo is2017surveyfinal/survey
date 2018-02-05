@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+ 
+    <h:head>
+        <title>JSF 2.2 Hello World </title>
+    </h:head>
+    <h:body bgcolor="white">
+      <h1 class="title">Survey list  PAGE</h1>
+				<h:form>
+					<p:dataTable value="#{surveyListProducer.surveys}" var="survey" id="dataTableSurvey">
+						<p:column>
+							<p:commandButton value="Delete" action="#{surveyListProducer.remove(survey)}" icon="ui-icon-trash" update="dataTableSurvey" ajax="true">
+							  <p:confirm header="Confirmation" message="Are you sure?" icon="ui-icon-alert" />
+							  </p:commandButton>
+ 
+                 <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+         </p:confirmDialog>
+						</p:column>
+						
+						<p:column>
+							<f:facet name="header">Name</f:facet>
+							<h:outputText value="#{survey.title}" />
+						</p:column>
+						
+					   
+						<p:column>
+						<f:facet name="header">Publish</f:facet>
+						<p:inputSwitch value="#{survey.published}">
+                             <p:ajax listener="#{surveyListProducer.managePublish(survey)}"  />
+                        </p:inputSwitch>
+						</p:column>
+						
+						
+						<p:column>
+							<p:commandButton value="Stats" action="#{listSurveyController.doViewStatistics(survey)}" icon="ui-icon-pencil" />
+						</p:column>
+						
+						<p:column>
+							<p:commandButton value="Edit Questions" action="#{listSurveyController.doListQuestions(survey)}" icon="ui-icon-pencil"/>
+						</p:column>
+						
+					</p:dataTable>
+					<p:commandButton value="Add campaign" action="#{listSurveyController.doAddSurvey}" />
+					
+				</h:form>
+
+
+
+ 
+    </h:body>
+</html>

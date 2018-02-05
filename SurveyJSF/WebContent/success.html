@@ -1,0 +1,83 @@
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <title>Hello App Engine</title>
+  </head>
+
+  <body>  <div id="okta-login-container"></div>
+ 
+     
+ <script type="text/javascript">
+
+  var redirectUrl = "http://localhost:8080/SurveyJSF/success.html";
+  var oktaSignIn = new OktaSignIn({
+    baseUrl: "https://dev-315516.oktapreview.com",
+    //clientId: "0oacrk32l7wo0Pgse0h7",  PRODUZIONE
+    clientId: "0oacrd60r34lq5XQ40h7",
+    redirectUri: "http://localhost:8080/SurveyJSF/success.html",
+    authParams: {
+      issuer: "https://dev-315516.oktapreview.com/oauth2/default",
+      responseType: ['token', 'id_token'],
+      display: 'page',
+      scopes: ['openid', 'email']
+    }
+  });
+  if (oktaSignIn.token.hasTokensInUrl()) {
+    oktaSignIn.token.parseTokensFromUrl(
+      function success(res) {
+    	
+        // The tokens are returned in the order requested by `responseType` above
+        var accessToken = res[0];
+        var idToken = res[1]
+        
+        // Say hello to the person who just signed in:
+        console.log('Hello, ' + idToken.claims.email);
+        window.alert("Testo del messaggio:"+idToken.claims.email);
+
+        // Save the tokens for later use, e.g. if the page gets refreshed:
+        oktaSignIn.tokenManager.add('accessToken', accessToken);
+        oktaSignIn.tokenManager.add('idToken', idToken);
+
+        // Remove the tokens from the window location hash
+        window.location.hash='';
+       
+      },
+      function error(err) {
+        // handle errors as needed
+        console.error(err);
+      }
+    );
+  } else {
+	 
+    oktaSignIn.session.get(function (res) {
+      // Session exists, show logged in state.
+      if (res.status === 'ACTIVE') {
+        console.log('Welcome back, ' + res.login);
+        return;
+      }
+      // No session, show the login form
+      oktaSignIn.renderEl(
+        { el: '#okta-login-container' },
+        function success(res) {
+        	// Nothing to do in this case, the widget will automatically redirect
+            // the user to Okta for authentication, then back to this page if successful
+        	
+        },
+        function error(err) {
+          // handle errors as needed
+          console.error(err);
+        }
+      );
+    });
+  }
+</script> 
+    <h1>Success!</h1>
+  
+  You are authenticated!!
+    
+ 
+  </body>
+</html>

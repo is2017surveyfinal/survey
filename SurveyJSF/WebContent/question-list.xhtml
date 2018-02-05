@@ -1,0 +1,26 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<body>
+	
+				<h1>Question page </h1>
+				
+				<h:form>
+					<h:dataTable value=	"#{surveyProducer.selectedSurvey.questions}" var="question">
+						<h:column>
+							<f:facet name="header">
+								title
+							</f:facet>
+							<h:outputText value="#{question.title}" />
+						</h:column>
+						
+					</h:dataTable>
+					<h:commandButton value="OK" action="#{listQuestionsController.doCancel}" />
+				
+			     	<h:commandButton value="Add" action="#{listQuestionsController.doAdd}" />
+				
+				</h:form>
+		
+</body>
+</html> 
