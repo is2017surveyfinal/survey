@@ -109,7 +109,7 @@ public class callback extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("user", user.getEmail());
 
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/survey-list.jsf");
+		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/default.jsf");
 		dispatcher.forward(request, response);
 
 	}
